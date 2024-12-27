@@ -68,3 +68,40 @@ TreeNode* deleteNode(TreeNode* root, int key) {
 // If the node has no children, remove it directly.
 // If it has one child, replace the node with its child.
 // If it has two children, replace the node's value with the minimum value from its right subtree, then delete that node.
+
+
+
+4. Validate Binary Search Tree -: 
+  
+Problem -: Check whether a given binary tree is a valid BST.
+
+
+bool isValidBST(TreeNode* root, long long minVal = LLONG_MIN, long long maxVal = LLONG_MAX) {
+    if (root == nullptr) return true;
+    if (root->val <= minVal || root->val >= maxVal) return false;
+    return isValidBST(root->left, minVal, root->val) && isValidBST(root->right, root->val, maxVal);
+}
+
+
+// Key Idea:
+// Use the properties of BST: all left nodes must be < root, and all right nodes must be > root.
+// Pass the valid range (minVal, maxVal) for each recursive call.
+
+
+5. Lowest Common Ancestor in a Binary Search Tree -:
+  
+Problem -: Find the lowest common ancestor (LCA) of two given nodes in a BST.
+
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (root == nullptr) return nullptr;
+    if (p->val < root->val && q->val < root->val) return lowestCommonAncestor(root->left, p, q);
+    if (p->val > root->val && q->val > root->val) return lowestCommonAncestor(root->right, p, q);
+    return root;
+}
+
+
+// Key Idea:
+// If both nodes are smaller than the root, move to the left subtree.
+// If both nodes are larger, move to the right subtree.
+// Otherwise, the current node is the LCA.
+
